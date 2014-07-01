@@ -36,7 +36,7 @@ class Getter(url: String, depth: Int) extends Actor with ActorLogging{
 	
 	
   def stop(): Unit = {
-    log.info("\n\n *** Getter {} is stopping", self.path)
+    //log.info("\n\n *** Getter {} is stopping", self.path)
     context.parent ! Done
     context.stop(self)
   }
