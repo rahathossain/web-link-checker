@@ -8,7 +8,8 @@ object Controller {
   case class Result(links: Set[String])
 }
 
-class Controller extends Actor with ActorLogging {
+class Controller extends Actor //with ActorLogging 
+{
   import Controller._
   
   var cache = Set.empty[String]
@@ -20,7 +21,7 @@ class Controller extends Actor with ActorLogging {
   
   def receive =   {
     case Check(url, depth) =>
-      log.debug("{} checking {}", depth, url)
+      //log.debug("{} checking {}", depth, url)
       if(!cache(url) && depth > 0)
         children += context.actorOf(getterProps(url, depth - 1))
       cache += url      

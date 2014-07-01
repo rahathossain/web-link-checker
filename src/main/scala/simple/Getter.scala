@@ -11,7 +11,8 @@ object Getter {
   case object Abort
 }
 
-class Getter(url: String, depth: Int) extends Actor with ActorLogging{
+class Getter(url: String, depth: Int) extends Actor //with ActorLogging
+{
 	import Getter._
 	
 	implicit val executor = context.dispatcher.asInstanceOf[Executor with ExecutionContext]
