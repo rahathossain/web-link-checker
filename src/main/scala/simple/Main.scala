@@ -10,10 +10,7 @@ class Main extends Actor {
   
   val receptionist = context.actorOf(Props[Receptionist], "receptionist")
   
-  //receptionist ! Get("http://www.google.com")
-  receptionist ! Get("http://www.seek.com.au/jobs-in-information-communication-technology/in-sydney/#dateRange=1&workType=242&industry=6281&occupation=&graduateSearch=false&salaryFrom=100000&salaryTo=999999&salaryType=annual&advertiserID=&advertiserGroup=&keywords=&page=1&displaySuburb=&seoSuburb=&isAreaUnspecified=false&location=1000&area=&nation=&sortMode=ListedDate&searchFrom=advanced&searchType=")
-  //-Dakka.loglevel=DEBUG -Dakka.actor.debug.receive=on
-  
+  receptionist ! Get("http://www.google.com")
   
   context.setReceiveTimeout(10.seconds)
   
