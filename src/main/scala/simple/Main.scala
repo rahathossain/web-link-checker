@@ -12,7 +12,7 @@ class Main extends Actor {
   
   receptionist ! Get("http://www.google.com")
   
-  context.setReceiveTimeout(10.seconds)
+  context.setReceiveTimeout(30.seconds)
   
   
   def receive = {

@@ -38,7 +38,7 @@ class Receptionist extends Actor {
     if(queue.isEmpty) waiting
     else{
       val controller = context.actorOf(controllerProps, s"c$reqNo")
-      controller ! Controller.Check(queue.head.url, 2)
+      controller ! Controller.Check(queue.head.url, 3)
       running(queue)
     }      
   }

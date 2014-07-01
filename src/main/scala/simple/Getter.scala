@@ -21,8 +21,14 @@ class Getter(url: String, depth: Int) extends Actor with ActorLogging{
   
 	def receive = {
 	  case body: String =>
-	    for(link <- findLinks(body))	      
-	      context.parent ! Controller.Check(link, depth)
+	    for(link <- findLinks(body)) {
+	      //log.info(s"\n\n [ $link ]")
+	      val checkedLink = check(link)
+	      //log.info(s"\n\n [ $checkedLink ]")
+	      context.parent ! Controller.Check(checkedLink, depth)
+	    }	      
+	      
+	      
 	      stop()
 	  case _: Status.Failure	=> stop()
 	  case Abort				=> stop()
@@ -45,6 +51,12 @@ class Getter(url: String, depth: Int) extends Actor with ActorLogging{
     } yield if (dquot != null) dquot
     else if (quot != null) quot
     else bare
+  }
+  
+  def check(u: String) = {
+    if( (u indexOf('.', 0)) == -1 )
+    	(url take( url indexOf('/', 8) )) + u
+    else u	
   }
   
 }
