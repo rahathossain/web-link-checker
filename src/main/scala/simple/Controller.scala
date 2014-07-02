@@ -1,7 +1,7 @@
 package simple
 
 import akka.actor.{ Actor, ActorRef, Props, ReceiveTimeout, Terminated, ActorLogging, OneForOneStrategy }
-import akka.actor.SupervisorStrategy.{ Restart, Stop }
+import akka.actor.SupervisorStrategy.{ Restart }
 import scala.concurrent.duration._
 
 object Controller {
@@ -15,6 +15,7 @@ class Controller extends Actor { //with ActorLogging
   var cache = Set.empty[String]
   context.setReceiveTimeout(TIMEOUT.seconds)
 
+  // 
   override val supervisorStrategy = OneForOneStrategy(maxNrOfRetries = 5) {
     case _: Exception => Restart
   }

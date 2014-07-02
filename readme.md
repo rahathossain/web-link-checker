@@ -103,33 +103,38 @@ On **Arguments** tab, put *Program arguments* as `simple.Main` and *VM arguments
 
 
 
-|               |               | HOOK        |
+| Life Cycle    | description   | HOOK        |
 | ------------- |:-------------:| -----------:|
-| Start         | new Actor -   | preStart    |
+| Start         | new Actor     | preStart    |
 |(Restart)*     | fail/restart  | preRestart  |
 |               |               | postRestart |
 | Stop          | stop          | postStop    |
 	  											
 
+#### Supervisor can monitor child actor
 
+1) OneForOneStrategy - deal with each child actor in isolation
 
+2) AllForOneStrategy - if decision applies to all children
 
-	 * Supervisor can monitor child actor
-	 * ---------------------------------------------------------------
-	 * 	1) OneForOneStrategy - deal with each child actor in isolation
-	 *  2) AllForOneStrategy - if decision applies to all children
-	 *  
-	 *  External Actor can monitor actor
-	 *  ---------------------------------------------------------------
-	 *  1) By registering Death Watch
-	 *  	context.watch(targetActor)
-	 *   	context.unwatch(targetActor)
-	 *   		and receives 
-	 *      Terminated(targetActor)
-	 *      (existenceConfirmed: Boolean, addressTerminated: Boolean)
-	 *      extends AutoReceiveMessage with PossiblyHarmful
-	 *   
-	 *  
+3) stoppingStrategy - For any failure of any child, issue a stop command
+
+#### External Actor can monitor actor
+
+1) By registering Death Watch
+
+To register death watch use `context.watch(targetActor)` and to unregister use `context.unwatch(targetActor)`
+
+```
+Watchers receives
+ Terminated(targetActor)
+    (existenceConfirmed: Boolean, addressTerminated: Boolean)
+	      extends AutoReceiveMessage with PossiblyHarmful
+```	      
+	    
+
+#### Code Snippet
+	   
 	 * **************************************************************
 	 * var restarts = Map.empty[ActorRef, Int].withDefaultValue(0) 
 	 *
@@ -145,7 +150,7 @@ On **Arguments** tab, put *Program arguments* as `simple.Main` and *VM arguments
 	 * 	}
 	 *  
 	 * Above code is same as
-	 *    
+	 *---------------------------------------------------------------    
 	 *	override val supervisorStrategy = OneForOneStrategy(maxNrOfRetries=10, withinTimeRange=1.minute ){
 	 * 		case _: Exception => Restart 
 	 *  }	 
