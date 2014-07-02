@@ -72,6 +72,7 @@ now use 'eclipse' command before loading the project from eclipse
 Directory structure has already been created. Inside *src/main/scala* create `simple` package
 
 Create following files under `simple` package
+
 `WebClient.scala`
 
 `Getter.scala`
