@@ -7,15 +7,14 @@ object Receptionist {
   case class Get(url: String)
   case class Result(url: String, links: Set[String])
   case class Failed(url: String)
+  val DEPTH = 2
 }
 
 class Receptionist extends Actor {
   import Receptionist._ 
   
   def controllerProps: Props = Props[Controller]
-  
   var reqNo = 0
-  
   def receive = waiting
   
   val waiting: Receive = {
@@ -28,19 +27,17 @@ class Receptionist extends Actor {
       job.client ! Result(job.url, links)
       context.stop(sender)
       context.become(runNext(queue.tail))
-    case Get(url) =>
-      context.become(enqueueJob(queue, Job(sender, url)))
+    case Get(url) => context.become(enqueueJob(queue, Job(sender, url)))
   }
-  
   
   def runNext(queue: Vector[Job]): Receive = {
     reqNo += 1
     if(queue.isEmpty) waiting
     else{
       val controller = context.actorOf(controllerProps, s"c$reqNo")
-      controller ! Controller.Check(queue.head.url, 2)
+      controller ! Controller.Check(queue.head.url, DEPTH)
       running(queue)
-    }      
+    }
   }
   
   def enqueueJob(queue: Vector[Job], job: Job) : Receive = {
@@ -48,6 +45,5 @@ class Receptionist extends Actor {
       sender ! Failed(job.url)
       running(queue)
     } else running(queue :+ job)
-  }
-  
+  }  
 }

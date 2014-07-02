@@ -72,20 +72,30 @@ now use 'eclipse' command before loading the project from eclipse
 Directory structure has already been created. Inside *src/main/scala* create `simple` package
 
 Create following files under `simple` package
-*WebClient.scala
-*Getter.scala
-*Controller.scala
-*Receptionist.scala
-*Main.scala
+`WebClient.scala`
+
+`Getter.scala`
+
+`Controller.scala`
+
+`Receptionist.scala`
+
+`Main.scala`
+
 
 ### Create run configuration to run from eclipse
-Navigate through *Run > Run Configurations...*
+
+Navigate through `Run > Run Configurations...`
 
 Select *Java Application* and click right mouse and hit *New*
 
 On **Main** tab, put *project* as `web-link-checker` and *Main class* as `akka.Main`
-On **Arguments** tab, put *Program arguments* as `simple.Main` and *VM arguments* as 
+
+On **Arguments** tab, put *Program arguments* as `simple.Main` and *VM arguments* as
+ 
 	`-Dakka.loglevel=DEBUG -Dakka.actor.debug.receive=on`
+
+ 
 
 
   

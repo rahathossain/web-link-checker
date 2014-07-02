@@ -38,7 +38,7 @@ object GetterSpec {
       bodies get url match {
       	case None		=> Future.failed(BadStatus(404)) 
       	case Some(body) => Future.successful(body)      
-      }
+      }    
   }
   
   def fakeGetter(url: String, depth: Int): Props =

@@ -10,8 +10,7 @@ trait WebClient {
 
 case class BadStatus(status: Int) extends RuntimeException
 
-object AsyncWebClient extends WebClient {
-  
+object AsyncWebClient extends WebClient {  
   private val client = new AsyncHttpClient
   
   def get(url: String)(implicit exec: Executor): Future[String] = {
@@ -30,10 +29,8 @@ object AsyncWebClient extends WebClient {
     p.future
   }
   
-  def shutdown(): Unit = client.close()
-  
+  def shutdown(): Unit = client.close()  
 }
-
 
 object WebClientTest extends App {
   import scala.concurrent.ExecutionContext.Implicits.global
