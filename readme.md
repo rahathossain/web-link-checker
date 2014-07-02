@@ -73,15 +73,15 @@ Directory structure has already been created. Inside *src/main/scala* create `si
 
 Create following files under `simple` package
 
-`WebClient.scala`
+* `WebClient.scala`
 
-`Getter.scala`
+* `Getter.scala`
 
-`Controller.scala`
+* `Controller.scala`
 
-`Receptionist.scala`
+* `Receptionist.scala`
 
-`Main.scala`
+* `Main.scala`
 
 
 ### Create run configuration to run from eclipse
@@ -94,8 +94,68 @@ On **Main** tab, put *project* as `web-link-checker` and *Main class* as `akka.M
 
 On **Arguments** tab, put *Program arguments* as `simple.Main` and *VM arguments* as
  
-	`-Dakka.loglevel=DEBUG -Dakka.actor.debug.receive=on`
+	-Dakka.loglevel=DEBUG -Dakka.actor.debug.receive=on
 
+
+
+
+### Life Cycle of an Actor
+
+
+
+|               |               | HOOK        |
+| ------------- |:-------------:| -----------:|
+| Start         | new Actor -   | preStart    |
+|(Restart)*     | fail/restart  | preRestart  |
+|               |               | postRestart |
+| Stop          | stop          | postStop    |
+	  											
+
+
+
+
+	 * Supervisor can monitor child actor
+	 * ---------------------------------------------------------------
+	 * 	1) OneForOneStrategy - deal with each child actor in isolation
+	 *  2) AllForOneStrategy - if decision applies to all children
+	 *  
+	 *  External Actor can monitor actor
+	 *  ---------------------------------------------------------------
+	 *  1) By registering Death Watch
+	 *  	context.watch(targetActor)
+	 *   	context.unwatch(targetActor)
+	 *   		and receives 
+	 *      Terminated(targetActor)
+	 *      (existenceConfirmed: Boolean, addressTerminated: Boolean)
+	 *      extends AutoReceiveMessage with PossiblyHarmful
+	 *   
+	 *  
+	 * **************************************************************
+	 * var restarts = Map.empty[ActorRef, Int].withDefaultValue(0) 
+	 *
+	 *	override val supervisorStrategy = OneForOneStrategy() {
+	 *  case _: Exception =>  restarts(sender) match {
+	 *  	case tooMany if tooMany > 10 =>
+	 *     		restarts -= sender
+	 *     		Stop
+	 *   	case n =>
+	 *     		restarts = restarts.updated(sender, n + 1)
+	 *     		Restart
+	 *    	}
+	 * 	}
+	 *  
+	 * Above code is same as
+	 *    
+	 *	override val supervisorStrategy = OneForOneStrategy(maxNrOfRetries=10, withinTimeRange=1.minute ){
+	 * 		case _: Exception => Restart 
+	 *  }	 
+	 
+	 *  Getter may get following Exceptions:
+	 *  
+	 *  	java.net.ConnectException
+	 *   	java.nio.channels.ClosedChannelException
+	 *      java.util.concurrent.ExecutionException
+	 *   
  
 
 

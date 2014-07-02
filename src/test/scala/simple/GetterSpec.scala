@@ -3,7 +3,7 @@ package simple
 import java.util.concurrent.Executor
 import scala.concurrent.{Future}
 
-import akka.actor.Props
+import akka.actor.{Props, Terminated, PoisonPill}
 import akka.testkit.{TestKit, ImplicitSender}
 import org.scalatest.{WordSpecLike, BeforeAndAfterAll}
 import akka.actor.{Actor, ActorRef, ActorSystem}
@@ -62,15 +62,19 @@ class GetterSpec extends TestKit(ActorSystem("GetterSpec"))
     
     
     "return the right body" in {
-      val getter = system.actorOf(Props(new StepParent(fakeGetter(firstLink, 2), testActor)), "rightBody")
+      val getter = system.actorOf(Props(new StepParent(fakeGetter(firstLink, 2), testActor)), "rightBody")      
       for (link <- links(firstLink))
         expectMsg(Controller.Check(link, 2))
-      expectMsg(Getter.Done)  
+      watch(getter)  
+      getter ! PoisonPill
+      expectTerminated(getter)  
     }
     
     "properly finish in case of errors" in {
       val getter = system.actorOf(Props(new StepParent(fakeGetter("unknown", 2), testActor)), "wrongLink")
-      expectMsg(Getter.Done)
+      watch(getter)
+      getter ! PoisonPill
+      expectTerminated(getter)
     }
     
   } 
