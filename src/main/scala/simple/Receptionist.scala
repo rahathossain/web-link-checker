@@ -39,6 +39,7 @@ class Receptionist extends Actor {
   
   def runNext(queue: Vector[Job]): Receive = {
     reqNo += 1
+    //if(reqNo == 3) context.stop(self)
     if(queue.isEmpty) waiting
     else{
       val controller = context.actorOf(controllerProps, s"c$reqNo")
