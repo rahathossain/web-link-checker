@@ -9,7 +9,7 @@ libraryDependencies +=
   
 libraryDependencies += "com.ning" % "async-http-client" % "1.7.5"
 
-libraryDependencies += "ch.qos.logback" % "logback-classic" % "1.0.7"
+libraryDependencies += "ch.qos.logback" % "logback-classic" % "1.0.13"
 
 libraryDependencies += "com.typesafe.akka" % "akka-testkit_2.10" % "2.3.3"
 
