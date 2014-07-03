@@ -17,7 +17,7 @@
 
     <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
       <!-- rollover daily -->
-      <fileNamePattern>logs/template-server-%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+      <fileNamePattern>logs/web-link-checker-%d{yyyy-MM-dd}.%i.log</fileNamePattern>
       <timeBasedFileNamingAndTriggeringPolicy
           class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
         <!-- or whenever the file size reaches 64 MB -->
@@ -28,6 +28,9 @@
     <!-- Safely log to the same file from multiple JVMs. Degrades performance! -->
     <prudent>true</prudent>
   </appender>
+  
+  
+  <logger name="simple" level="TRACE" />
   
   
 
