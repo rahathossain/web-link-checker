@@ -11,15 +11,20 @@ object Getter {
   case object Abort
 }
 
-class Getter(url: String, depth: Int) extends Actor { //with ActorLogging  
+class Getter(url: String, depth: Int) extends Actor with ActorLogging {  
   import Getter._
   implicit val executor = context.dispatcher.asInstanceOf[Executor with ExecutionContext]
   def client: WebClient = AsyncWebClient
+  
+  val req_time = System.currentTimeMillis()
 
   client get url pipeTo self
 
-  def receive = {
+  def receive = {    
     case body: String =>
+      val res_time = System.currentTimeMillis()
+      val diff  = res_time - req_time
+      log.debug(s"\n\n\t**** $url took $diff miliseconds to response\n")
       for (link <- findLinks(body))
         context.parent ! Controller.Check(link, depth)
       context.stop(self)

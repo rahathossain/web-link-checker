@@ -10,7 +10,7 @@ object Controller {
   val TIMEOUT = 10
 }
 
-class Controller extends Actor { //with ActorLogging  
+class Controller extends Actor with ActorLogging {   
   import Controller._
   var cache = Set.empty[String]
   context.setReceiveTimeout(TIMEOUT.seconds)
@@ -24,7 +24,7 @@ class Controller extends Actor { //with ActorLogging
 
   def receive = {
     case Check(url, depth) =>
-      //log.debug("{} checking {}", depth, url)
+      log.debug("\n\n\t**** {} checking {}\n", depth, url)
       if (!cache(url) && depth > 0)
         context.watch(context.actorOf(getterProps(url, depth - 1)))
       cache += url

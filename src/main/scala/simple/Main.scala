@@ -17,6 +17,7 @@ class Main extends Actor {
   def receive = {
     case Result(url, set) => 
       println(set.toVector.sorted.mkString(s"Result for '$url'\n", "\n", "\n" ))
+      context.stop(self)
     case Failed(url) => println(s"Failed to fetch '$url'\n")
     case ReceiveTimeout => context.stop(self)
   }

@@ -92,11 +92,24 @@ Select *Java Application* and click right mouse and hit *New*
 
 On **Main** tab, put *project* as `web-link-checker` and *Main class* as `akka.Main`
 
-On **Arguments** tab, put *Program arguments* as `simple.Main` and *VM arguments* as
+On **Arguments** tab, put *Program arguments* as `simple.Main` 
+
+On **Arguments** tab, put *VM arguments* as follows 
  
 	-Dakka.loglevel=DEBUG -Dakka.actor.debug.receive=on
 
+Alternatively create `src/main/resources/application.conf` file
 
+```
+akka {
+  loglevel = "DEBUG"    
+  actor {    
+    debug {    
+      receive = on      
+    }    
+  }   
+}
+```
 
 
 ### Life Cycle of an Actor
@@ -125,8 +138,8 @@ On **Arguments** tab, put *Program arguments* as `simple.Main` and *VM arguments
 
 To register death watch use `context.watch(targetActor)` and to unregister use `context.unwatch(targetActor)`
 
-```
 Watchers receives
+```
  Terminated(targetActor)
     (existenceConfirmed: Boolean, addressTerminated: Boolean)
 	      extends AutoReceiveMessage with PossiblyHarmful
@@ -161,7 +174,5 @@ Watchers receives
 	 *   	java.nio.channels.ClosedChannelException
 	 *      java.util.concurrent.ExecutionException
 	 *   
- 
-
 
   
