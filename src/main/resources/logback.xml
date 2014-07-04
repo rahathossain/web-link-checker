@@ -26,10 +26,12 @@
     </rollingPolicy>
 
     <!-- Safely log to the same file from multiple JVMs. Degrades performance! -->
-    <prudent>true</prudent>
+    <!-- <prudent>true</prudent> -->
   </appender>  
+  
+  <logger name="simple" level="DEBUG" />
 
-  <root level="TRACE">
+  <root level="DEBUG">
     <appender-ref ref="STDOUT" />
     <appender-ref ref="FILE" />
   </root>
