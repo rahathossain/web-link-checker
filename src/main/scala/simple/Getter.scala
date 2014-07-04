@@ -25,6 +25,7 @@ class Getter(url: String, depth: Int) extends Actor with ActorLogging {
       val res_time = System.currentTimeMillis()
       val diff  = res_time - req_time
       log.debug(s"\n\n\t**** $url took $diff miliseconds to response\n")
+      log.debug(s"\n\n\t**** path = {} \n ", self.path) 
       for (link <- findLinks(body))
         context.parent ! Controller.Check(link, depth)
       context.stop(self)

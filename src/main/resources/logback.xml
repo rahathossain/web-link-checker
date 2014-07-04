@@ -27,18 +27,10 @@
 
     <!-- Safely log to the same file from multiple JVMs. Degrades performance! -->
     <prudent>true</prudent>
-  </appender>
-  
-  
-  <logger name="simple" level="TRACE" />
-  
-  
+  </appender>  
 
-  <root level="DEBUG">
+  <root level="TRACE">
     <appender-ref ref="STDOUT" />
-    <appender-ref ref="FILE" />    
+    <appender-ref ref="FILE" />
   </root>
-  
-  
-  
 </configuration>

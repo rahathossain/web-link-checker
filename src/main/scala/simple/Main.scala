@@ -12,11 +12,11 @@ class Main extends Actor {
   context.watch(receptionist)
   
   receptionist ! Get(testURL)
-  receptionist ! Get(testURL+"/1")
-  receptionist ! Get(testURL+"/2")
-  receptionist ! Get(testURL+"/3")
-  receptionist ! Get(testURL+"/4")
-  receptionist ! Get(testURL+"/5")
+  //receptionist ! Get(testURL+"/1")
+  //receptionist ! Get(testURL+"/2")
+  //receptionist ! Get(testURL+"/3")
+  //receptionist ! Get(testURL+"/4")
+  //receptionist ! Get(testURL+"/5")
   
   context.setReceiveTimeout(TIMEOUT.seconds)
   
