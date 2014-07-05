@@ -19,6 +19,8 @@ libraryDependencies += "com.typesafe.akka" % "akka-slf4j_2.10" % "2.3.3"
 
 libraryDependencies += "ch.qos.logback" % "logback-classic" % "1.0.13"
 
+libraryDependencies += "com.typesafe.akka" % "akka-cluster_2.10" % "2.3.3"
+
 resolvers += "Akka Snapshot Repository" at "http://repo.akka.io/snapshots/"
 
 resolvers += "Typesafe Repository" at "http://repo.typesafe.com/typesafe/releases/"
