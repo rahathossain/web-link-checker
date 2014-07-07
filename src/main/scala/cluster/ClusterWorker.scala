@@ -12,6 +12,9 @@ class ClusterWorker extends Actor with ActorLogging {
 	cluster.subscribe(self, classOf[MemberUp])
 	cluster.subscribe(self, classOf[MemberRemoved])
 	val main = cluster.selfAddress.copy(port = Some(2552))
+	log.info(s"\n\n\n\n\t **** main =  $main ")
+	log.info("\n\n\n\n\t **** path =  " + RootActorPath(main))
+	
 	cluster.join(main)
 	
 	def receive = {

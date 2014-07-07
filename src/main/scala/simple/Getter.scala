@@ -17,7 +17,9 @@ class Getter(url: String, depth: Int) extends Actor {
   implicit val executor = context.dispatcher.asInstanceOf[Executor with ExecutionContext]
   def client: WebClient = AsyncWebClient
   
+  // SLF4J with print the whole actor for self.path.toString()
   val log = Logging(context.system.eventStream, self.path.toString())
+  
   //val log = Logging(context.system.eventStream, this.getClass())
 
   val req_time = System.currentTimeMillis()

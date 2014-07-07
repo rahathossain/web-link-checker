@@ -1,10 +1,10 @@
 package cluster
 
-import akka.actor.{ Actor, Props, ReceiveTimeout }
+import akka.actor.{ Actor, Props, ReceiveTimeout, ActorLogging }
 import akka.cluster.{ Cluster, ClusterEvent }
 import scala.concurrent.duration._
 
-class ClusterMain extends Actor {
+class ClusterMain extends Actor with ActorLogging  {
 
   import ClusterReceptionist._
   import ClusterEvent.{ MemberUp, MemberRemoved }
@@ -37,7 +37,9 @@ class ClusterMain extends Actor {
       }
       
     case Result(url, set) =>
-      println(set.toVector.sorted.mkString(s"Results for '$url':\n", "\n", "\n"))
+      val output = set.toVector.sorted.mkString(s"Results for '$url':\n", "\n\t", "\n")
+      log.info("\n\n\n\n\t {} \n\n\n", output)
+      println(output)
       
     case Failed(url, reason) =>
       println(s"Failed to fetch '$url': $reason\n")
