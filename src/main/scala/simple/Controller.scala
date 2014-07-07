@@ -6,16 +6,16 @@ import scala.concurrent.duration._
 
 object Controller {
   case class Check(url: String, depth: Int)
-  case class Result(links: Set[String])
-  val TIMEOUT = 10
+  case class Result(links: Set[String])  
 }
 
 class Controller extends Actor with ActorLogging {   
   import Controller._
+  import Config.ControllerTimeout
+  
   var cache = Set.empty[String]
-  context.setReceiveTimeout(TIMEOUT.seconds)
+  context.setReceiveTimeout(ControllerTimeout.seconds)
 
-  // 
   override val supervisorStrategy = OneForOneStrategy(maxNrOfRetries = 5) {
     case _: Exception => Restart
   }

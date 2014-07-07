@@ -1,6 +1,6 @@
 package cluster
 
-import akka.actor.{Actor, ActorLogging, RootActorPath, Identify, ActorIdentity, Terminated}
+import akka.actor.{Actor, ActorLogging, RootActorPath, Identify, ActorIdentity, Terminated, Props}
 import akka.cluster.{Cluster, ClusterEvent}
 import simple.AsyncWebClient
 

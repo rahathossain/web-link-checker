@@ -5,9 +5,8 @@ import scala.concurrent.duration._
 
 class Main extends Actor {
   import Receptionist._
-
-  val TIMEOUT = 10
-  val testURL = "http://www.google.com"
+  import Config.{MainTimeout, testURL}
+  
   val receptionist = context.actorOf(Props[Receptionist], "receptionist")
   context.watch(receptionist)
 
@@ -18,7 +17,7 @@ class Main extends Actor {
   //receptionist ! Get(testURL+"/4")
   //receptionist ! Get(testURL+"/5")
 
-  context.setReceiveTimeout(TIMEOUT.seconds)
+  context.setReceiveTimeout(MainTimeout.seconds)
 
   def receive = {
     case Result(url, set) =>

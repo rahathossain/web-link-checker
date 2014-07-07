@@ -7,12 +7,12 @@ object Receptionist {
   private case class Job(client: ActorRef, url: String)
   case class Get(url: String)
   case class Result(url: String, links: Set[String])
-  case class Failed(url: String)
-  val DEPTH = 2
+  case class Failed(url: String)  
 }
 
 class Receptionist extends Actor {
   import Receptionist._ 
+  import Config.ReceptionistDepth
    
   override def supervisorStrategy = stoppingStrategy
   
@@ -44,7 +44,7 @@ class Receptionist extends Actor {
     else{
       val controller = context.actorOf(controllerProps, s"c$reqNo")
       context.watch(controller) 
-      controller ! Controller.Check(queue.head.url, DEPTH)
+      controller ! Controller.Check(queue.head.url, ReceptionistDepth)
       running(queue)
     }
   }
