@@ -6,9 +6,10 @@ import scala.util.Random
 import com.typesafe.config.{ConfigFactory, Config}
 import akka.actor.ActorSystem
 import akka.actor.Props
-
+import akka.kernel.Bootable
 
 object LookupApplication {
+  
   def main(args: Array[String]): Unit = {
     
     if (args.head == "Main") startClusterMain()
@@ -70,5 +71,10 @@ object LookupApplication {
     
     println("Started LookupSystem\n\n\n")    
   }
+  
 }
+
+
+
+
 
