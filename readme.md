@@ -145,38 +145,7 @@ Watchers receives
 	      extends AutoReceiveMessage with PossiblyHarmful
 ```	      
 	    
-
-#### Code Snippet
-	   
-	 * **************************************************************
-	 * var restarts = Map.empty[ActorRef, Int].withDefaultValue(0) 
-	 *
-	 *	override val supervisorStrategy = OneForOneStrategy() {
-	 *  case _: Exception =>  restarts(sender) match {
-	 *  	case tooMany if tooMany > 10 =>
-	 *     		restarts -= sender
-	 *     		Stop
-	 *   	case n =>
-	 *     		restarts = restarts.updated(sender, n + 1)
-	 *     		Restart
-	 *    	}
-	 * 	}
-	 *  
-	 * Above code is same as
-	 *---------------------------------------------------------------    
-	 *	override val supervisorStrategy = OneForOneStrategy(maxNrOfRetries=10, withinTimeRange=1.minute ){
-	 * 		case _: Exception => Restart 
-	 *  }	 
-	 
-	 *  Getter may get following Exceptions:
-	 *  
-	 *  	java.net.ConnectException
-	 *   	java.nio.channels.ClosedChannelException
-	 *      java.util.concurrent.ExecutionException
-	 *   
-
-  
-  #### Running Cluster from SBT
+ #### Running Cluster from SBT
   
  Open two command prompt and fire up sbt
   
@@ -186,7 +155,41 @@ Watchers receives
  
  One main fire up, from another command prompt fire up Worker 
    
- &gt; runMain cluster.LookupApplication Worker
+ &gt; runMain cluster.LookupApplication Worker	    
+ 
+ 
+
+#### Code Snippet
+	   
+```
+	  var restarts = Map.empty[ActorRef, Int].withDefaultValue(0) 
+	 
+	 	override val supervisorStrategy = OneForOneStrategy() {
+	   case _: Exception =>  restarts(sender) match {
+	   	case tooMany if tooMany > 10 =>
+	      		restarts -= sender
+	      		Stop
+	    	case n =>
+	      		restarts = restarts.updated(sender, n + 1)
+	      		Restart
+	     	}
+	  	}
+	   
+	  Above code is same as
+	 ------------------------    
+	 	override val supervisorStrategy = OneForOneStrategy(maxNrOfRetries=10, withinTimeRange=1.minute ){
+	  		case _: Exception => Restart 
+	   }	 
+	 
+	   Getter may get following Exceptions:
+	   
+	   	java.net.ConnectException
+	   	java.nio.channels.ClosedChannelException
+	    java.util.concurrent.ExecutionException
+	    
+```
+  
+
  
  
    
