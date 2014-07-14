@@ -176,3 +176,17 @@ Watchers receives
 	 *   
 
   
+  #### Running Cluster from SBT
+  
+ Open two command prompt and fire up sbt
+  
+ From one command promt fire up Main
+   
+ &gt; runMain cluster.LookupApplication Main
+ 
+ One main fire up, from another command prompt fire up Worker 
+   
+ &gt; runMain cluster.LookupApplication Worker
+ 
+ 
+   
