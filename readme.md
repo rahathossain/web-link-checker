@@ -145,7 +145,7 @@ Watchers receives
 	      extends AutoReceiveMessage with PossiblyHarmful
 ```	      
 	    
- #### Running Cluster from SBT
+#### Running Cluster from SBT
   
  Open two command prompt and fire up sbt
   
