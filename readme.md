@@ -12,7 +12,7 @@ This is another akka project created using sbt from scratch.
 ### Create build.sbt File
  $ vi build.sbt
 
-```sbt
+```scala
 name := "web-link-checker"
 
 version := "1.0"
@@ -100,7 +100,7 @@ On **Arguments** tab, put *VM arguments* as follows
 
 Alternatively create `src/main/resources/application.conf` file
 
-```
+```scala
 akka {
   loglevel = "DEBUG"    
   actor {    
@@ -139,7 +139,7 @@ akka {
 To register death watch use `context.watch(targetActor)` and to unregister use `context.unwatch(targetActor)`
 
 Watchers receives
-```
+```scala
  Terminated(targetActor)
     (existenceConfirmed: Boolean, addressTerminated: Boolean)
 	      extends AutoReceiveMessage with PossiblyHarmful
