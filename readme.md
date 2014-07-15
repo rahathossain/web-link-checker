@@ -161,7 +161,7 @@ Watchers receives
 
 #### Code Snippet
 	   
-```
+```scala
 	  var restarts = Map.empty[ActorRef, Int].withDefaultValue(0) 
 	 
 	 	override val supervisorStrategy = OneForOneStrategy() {
@@ -175,8 +175,8 @@ Watchers receives
 	     	}
 	  	}
 	   
-	  Above code is same as
-	 ------------------------    
+	  //Above code is same as
+	 //------------------------    
 	 	override val supervisorStrategy = OneForOneStrategy(maxNrOfRetries=10, withinTimeRange=1.minute ){
 	  		case _: Exception => Restart 
 	   }	 
