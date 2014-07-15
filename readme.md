@@ -12,7 +12,7 @@ This is another akka project created using sbt from scratch.
 ### Create build.sbt File
  $ vi build.sbt
 
-```
+```sbt
 name := "web-link-checker"
 
 version := "1.0"
