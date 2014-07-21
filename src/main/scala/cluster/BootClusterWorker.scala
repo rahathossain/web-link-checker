@@ -17,7 +17,7 @@ class BootClusterWorker extends Bootable {
 		      receive = on
 		    }		    
 		  }		  
-          remote.netty.tcp.port = 0
+          remote.netty.tcp.port = 0          
           
 		  cluster {
 		  	min-nr-of-members=2
