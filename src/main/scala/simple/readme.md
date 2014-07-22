@@ -1,4 +1,9 @@
 
+Getter.scala is an Actor, which born with an url and depth size as tag value, 
+once it borns, it reads all the content from the url and finds all the links in it 
+and sends them to it's parent actor one by one along with the tag value i.e. 
+depth and when sending is done it kill itself.
+
 ### Getter.scala
 
 Getter fetch the content from the url and 
